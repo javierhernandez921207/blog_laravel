@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ProductController extends Controller
 {
@@ -34,10 +35,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $product = new Product();
         $product->name = $request->name;
@@ -76,7 +77,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProductRequest $request, Product $product)
-    {
+    {       
         $product->name = $request->name;
         $product->price = $request->price;        
         $product->save();

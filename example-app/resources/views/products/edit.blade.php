@@ -10,8 +10,28 @@
     <form method="post" action="{{ route('products.update', $product->id) }}" >
         @csrf
         @method('put')
-        <label>Name: <input type="text" name="name" value="{{$product->name}}"></label><br>
-        <label>Price: <input type="number" name="price" value="{{$product->price}}"></label><br>    
+        <label>
+            <br>Name: <br>
+            <input type="text" name="name" value="{{old('name',$product->name)}}">
+        </label>
+        @error('name')
+            <br>
+            <small>
+                *{{$message}}
+            </small>
+            <br>
+        @enderror
+        <label>
+            <br>Price: <br>
+            <input type="number" name="price" value="{{old('price', $product->price)}}">
+        </label>
+        @error('price')
+            <br>
+            <small>
+                *{{$message}}
+            </small>
+            <br>
+        @enderror   
         <br>
         <button type="submit">Update</button>    
     </form>    
