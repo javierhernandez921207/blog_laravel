@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')->paginate();
-        
+
         return view('products.index', compact('products'));
     }
 
@@ -40,11 +40,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->save();
-        return redirect()->route('products.show',$product);
+        $product = Product::create($request->all());
+        return redirect()->route('products.show', $product);
     }
 
     /**
@@ -66,7 +63,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));    
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -77,11 +74,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProductRequest $request, Product $product)
-    {       
-        $product->name = $request->name;
-        $product->price = $request->price;        
-        $product->save();
-        return redirect()->route('products.show',$product);
+    {
+        $product->update($request->all());
+        return redirect()->route('products.show', $product);
     }
 
     /**
